@@ -1,4 +1,4 @@
-package second;
+package test;
 
 public class SecondTask {
     public static void main(String[] args) {

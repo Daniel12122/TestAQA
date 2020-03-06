@@ -1,12 +1,13 @@
 package test.negative;
 
-import first.factory.UserFactory;
-import first.model.User;
-import first.page.LoginPage;
+import base.BaseTest;
+import factory.UserFactory;
+import model.User;
+import page.LoginPage;
 import org.testng.annotations.Test;
 
 
-public class SingInNegativeTest {
+public class SingInNegativeTest extends BaseTest {
 
     User user = UserFactory.getRandomUser();
 
@@ -14,6 +15,8 @@ public class SingInNegativeTest {
     void loginWithRandomInformation() {
         new LoginPage()
                 .login(user);
+        new LoginPage()
+                .verifyErrorMessageDisplayed();
     }
 
     @Test
@@ -27,12 +30,14 @@ public class SingInNegativeTest {
     void loginWithoutUsername() {
         new LoginPage()
                 .loginWithoutUsername(user)
-                .verifyErrorMessageDisplayed();
+                .verifyPageLoaded();
     }
 
     @Test
     void loginWithoutInformation() {
         new LoginPage()
                 .clickLogin();
+        new LoginPage()
+                .verifyPageLoaded();
     }
 }

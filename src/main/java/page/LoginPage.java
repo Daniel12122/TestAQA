@@ -1,17 +1,18 @@
-package first.page;
+package page;
 
-
-import first.base.BasePage;
-import first.model.User;
+import base.BasePage;
+import base.LoadableComponent;
 import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
+import model.User;
 import org.assertj.core.api.SoftAssertions;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
-public class LoginPage extends BasePage {
+public class LoginPage extends BasePage implements LoadableComponent {
 
     @FindBy(css = "#username")
     private WebElement usernameInput;
@@ -30,29 +31,29 @@ public class LoginPage extends BasePage {
 
     @Step
     public LoginPage inputUsername(String username) {
-        wait.until(ExpectedConditions.elementToBeClickable(usernameInput));
         usernameInput.sendKeys(username);
+        log.info("Input Username");
         return this;
     }
 
     @Step
     public LoginPage inputPassword(String password) {
-        wait.until(ExpectedConditions.elementToBeClickable(passwordInput));
         passwordInput.sendKeys(password);
+        log.info("Input password");
         return this;
     }
 
     @Step
     public MainPage clickLogin() {
-        wait.until(ExpectedConditions.elementToBeClickable(loginBtn));
         loginBtn.click();
+        log.info("Click button Login");
         return new MainPage();
     }
 
     @Step
     public LoginPage clickRememberMe() {
-        wait.until(ExpectedConditions.elementToBeClickable(rememberMeCheckbox));
         rememberMeCheckbox.click();
+        log.info("Click remember me checkbox");
         return this;
     }
 
@@ -84,9 +85,17 @@ public class LoginPage extends BasePage {
     @Step
     public LoginPage verifyErrorMessageDisplayed(){
         SoftAssertions assertions = new SoftAssertions();
-        assertions.assertThat(isLoaded()).as("").isTrue();
-        assertions.assertThat(loginErrorDisplayed()).as("").isTrue();
+        assertions.assertThat(isLoaded()).as("Page didn't load!").isTrue();
+        assertions.assertThat(loginErrorDisplayed()).as("Error text didn't appear!").isTrue();
         assertions.assertAll();
+        log.info("Check that we are on that page and an error message appears.");
+        return this;
+    }
+
+    @Step
+    public LoginPage verifyPageLoaded() {
+        assertThat(isLoaded()).as("Page didn't load!").isTrue();
+        log.info("Check that we are on that page.");
         return this;
     }
 

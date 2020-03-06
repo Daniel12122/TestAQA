@@ -1,6 +1,6 @@
-package first.factory;
+package factory;
 
-import first.model.User;
+import model.User;
 import org.apache.commons.lang3.RandomStringUtils;
 
 public class UserFactory {
@@ -10,8 +10,8 @@ public class UserFactory {
 
     public static User getDefaultUser() {
         return User.builder()
-                .email("yurii@ctdev.io")
-                .password("4eszXDR%")
+                .email("danylo@ctdev.com")
+                .password("5k3zkl43")
                 .build();
     }
 
