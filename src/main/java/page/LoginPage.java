@@ -1,5 +1,6 @@
 package page;
 
+import action.ElementActions;
 import base.BasePage;
 import base.LoadableComponent;
 import io.qameta.allure.Step;
@@ -31,29 +32,29 @@ public class LoginPage extends BasePage implements LoadableComponent {
 
     @Step
     public LoginPage inputUsername(String username) {
+        log.info("Input Username - "+ username);
         usernameInput.sendKeys(username);
-        log.info("Input Username");
         return this;
     }
 
     @Step
     public LoginPage inputPassword(String password) {
+        log.info("Input password - " + password);
         passwordInput.sendKeys(password);
-        log.info("Input password");
         return this;
     }
 
     @Step
     public MainPage clickLogin() {
-        loginBtn.click();
         log.info("Click button Login");
+        loginBtn.click();
         return new MainPage();
     }
 
     @Step
     public LoginPage clickRememberMe() {
-        rememberMeCheckbox.click();
         log.info("Click remember me checkbox");
+        rememberMeCheckbox.click();
         return this;
     }
 
@@ -79,29 +80,29 @@ public class LoginPage extends BasePage implements LoadableComponent {
 
     @Step
     public boolean loginErrorDisplayed() {
-        return errorMessages.isDisplayed();
+        return ElementActions.isDisplayed(errorMessages);
     }
 
     @Step
     public LoginPage verifyErrorMessageDisplayed(){
+        log.info("Check that we are on that page and an error message appears.");
         SoftAssertions assertions = new SoftAssertions();
         assertions.assertThat(isLoaded()).as("Page didn't load!").isTrue();
         assertions.assertThat(loginErrorDisplayed()).as("Error text didn't appear!").isTrue();
         assertions.assertAll();
-        log.info("Check that we are on that page and an error message appears.");
         return this;
     }
 
     @Step
     public LoginPage verifyPageLoaded() {
-        assertThat(isLoaded()).as("Page didn't load!").isTrue();
         log.info("Check that we are on that page.");
+        assertThat(isLoaded()).as("Page didn't load!").isTrue();
         return this;
     }
 
     @Step
     @Override
     public boolean isLoaded() {
-        return usernameInput.isDisplayed();
+        return ElementActions.isDisplayed(usernameInput);
     }
 }

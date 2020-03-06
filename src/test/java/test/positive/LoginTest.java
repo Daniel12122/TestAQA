@@ -5,6 +5,7 @@ import factory.UserFactory;
 import model.User;
 import page.LoginPage;
 import org.testng.annotations.Test;
+import page.MainPage;
 
 public class LoginTest extends BaseTest {
 
@@ -13,7 +14,8 @@ public class LoginTest extends BaseTest {
         User user = UserFactory.getDefaultUser();
 
           new LoginPage()
-                .login(user)
+                .login(user);
+          new MainPage()
                   .verifyPageLoaded();
     }
 }

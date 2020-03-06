@@ -1,5 +1,6 @@
 package page;
 
+import action.ElementActions;
 import base.BasePage;
 import base.LoadableComponent;
 import io.qameta.allure.Step;
@@ -17,13 +18,13 @@ public class MainPage extends BasePage implements LoadableComponent {
 
     @Step
     public MainPage verifyPageLoaded() {
-        assertThat(isLoaded()).as("Page didn't load!").isTrue();
         log.info("Check that we are on that page.");
+        assertThat(isLoaded()).as("Page didn't load!").isTrue();
         return this;
     }
 
     @Override
     public boolean isLoaded() {
-        return verificationCodeInput.isDisplayed();
+        return ElementActions.isDisplayed(verificationCodeInput);
     }
 }
